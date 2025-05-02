@@ -5,6 +5,8 @@
 
 #include "../include/getValidInt.h"
 #include <iostream>
+#include <string>
+#include <cctype>
 
 using namespace std;
 
@@ -23,3 +25,24 @@ int intValidation::getValidInt(int min, int max) {
         }
     }
 }
+
+
+bool intValidation::isValidDate(const string& date) {
+    if (date.length() != 10 || date[4] != '-' || date[7] != '-') return false;
+
+    string yearStr = date.substr(0, 4);
+    string monthStr = date.substr(5, 2);
+    string dayStr = date.substr(8, 2);
+
+    // Check digits only
+    for (char c : yearStr + monthStr + dayStr) {
+        if (!isdigit(c)) return false;
+    }
+
+    int year = stoi(yearStr);
+    int month = stoi(monthStr);
+    int day = stoi(dayStr);
+
+    return year < 2025 && month >= 1 && month <= 12 && day >= 1 && day <= 31;
+}
+
