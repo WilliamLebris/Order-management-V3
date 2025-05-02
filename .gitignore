@@ -21,3 +21,11 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Binaries
+Order_Manager_2
+RunTests
+
+# Test folders (if any generated)
+Testing/
+
