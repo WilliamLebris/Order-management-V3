@@ -1,2 +1,1 @@
-![Cross-Platform CMake Build and Test](https://github.com/WilliamLebris/Customizable-Order-Management/actions/workflows/cross-platform-ci.yml/badge.svg)
-
+[![Cross-Platform CMake Build and Test](https://github.com/WilliamLebris/Customizable-Order-Management/actions/workflows/cross-platform-ci.yml/badge.svg)](https://github.com/WilliamLebris/Customizable-Order-Management/actions/workflows/cross-platform-ci.yml)
