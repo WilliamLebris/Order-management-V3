@@ -29,7 +29,7 @@ add_executable(Order_Manager_2
         src/globalVariable.cpp
         src/UserDatabase.cpp
         src/NameValidation.cpp
-        src/main.cpp
+        main.cpp
         src/printStoreOrders.cpp
 )
 
