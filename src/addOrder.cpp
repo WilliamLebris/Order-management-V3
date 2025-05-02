@@ -6,6 +6,8 @@
 #include "../include/globalVariable.h"
 #include <iomanip>
 #include "../include/getValidInt.h"
+#include <memory>  // For std::unique_ptr and std::shared_ptr
+#include <vector>  // For std::vector
 
 #include <fstream> // Include for file writing
 #include <filesystem> // Include for checking current directory
