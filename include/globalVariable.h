@@ -6,6 +6,8 @@
 #define GLOBALVARIABLE_H
 
 #include <map>
+#include <memory>  // For std::unique_ptr and std::shared_ptr
+#include <vector>  // For std::vector
 #include <stdio.h>
 #include <iostream>
 using namespace std;
