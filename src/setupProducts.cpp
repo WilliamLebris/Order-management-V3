@@ -6,6 +6,9 @@
 #include "../include/getValidInt.h"
 #include "../include/globalVariable.h"
 #include "../include/getValidDouble.h"
+#include <memory>  // For std::unique_ptr and std::shared_ptr
+#include <vector>  // For std::vector
+
 
 using namespace std;
 // Step 1: Setup Products and Prices
