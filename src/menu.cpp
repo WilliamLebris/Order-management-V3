@@ -17,6 +17,7 @@
 
 #include "../include/getValidInt.h"
 #include "../include/UserDatabase.h"
+#include "../include/printStoreOrders.h"
 #include <iostream>
 using namespace std;
 
@@ -26,6 +27,7 @@ enum MenuOption {
     DISPLAY_ORDERS,
     SEARCH_ORDER,
     DELETE_ORDER,
+    PRINT_STORE_ORDERS,
     ADD_USER,
     LOGIN_USER,
     EXIT_PROGRAM
@@ -43,9 +45,10 @@ void menuDeclaration::menu() {
         cout << "2. Display Orders\n";
         cout << "3. Search Order\n";
         cout << "4. Delete Order\n";
-        cout << "5. Add a new user"<<endl;
-        cout << "6. Log in as another users"<<endl;
-        cout << "7. Exit\n";
+        cout << "5. Print all the orders since the store opened"<<endl;
+        cout << "6. Add a new user"<<endl;
+        cout << "7. Log in as another users"<<endl;
+        cout << "8. Exit\n";
         cout<< "====================\n";
         cout << "Enter your choice: ";
         choice = intValidation::getValidInt(1, 8);  // make sure the user doesn't try to crash the program
@@ -56,6 +59,7 @@ void menuDeclaration::menu() {
             case DISPLAY_ORDERS: displayOrderDeclaration::displayOrders(); break;
             case SEARCH_ORDER: searchOrderDeclaration::searchOrder(); break;
             case DELETE_ORDER: deleteOrderDeclaration::deleteOrder(); break;
+            case PRINT_STORE_ORDERS: readAllOrdersFromBinary(); break;
             case ADD_USER: addNewUser(); break;
             case LOGIN_USER: login(); break;
             case EXIT_PROGRAM:
