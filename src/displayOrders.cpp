@@ -13,7 +13,7 @@ namespace displayOrderDeclaration {
         std::ifstream inputFile("data/ordersFile.csv");
 
         if (!inputFile.is_open()) {
-            std::cout << "Error opening file: ordersFile.csv\n";
+            std::cout << "Sorry, Error opening file: ordersFile.csv\n";
             return;
         }
 
