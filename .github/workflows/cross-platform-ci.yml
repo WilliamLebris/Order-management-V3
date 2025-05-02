@@ -1,4 +1,4 @@
-name: Cross Platform CI
+name: Cross Platform CMake build and Test
 
 on: [push, pull_request]
 
