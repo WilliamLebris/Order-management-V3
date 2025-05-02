@@ -29,3 +29,4 @@ RunTests
 # Test folders (if any generated)
 Testing/
 
+/build/
