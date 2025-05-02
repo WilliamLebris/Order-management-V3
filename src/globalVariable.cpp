@@ -12,5 +12,5 @@ int numProducts = 0, numFields = 0, orderCount = 0;
 map<string, double> productMap;
 
 string customerFields[5];
-std::vector<std::unique_ptr<Order>> orders;
-std::vector<std::shared_ptr<SpecialProduct>> specialProducts;
+vector<unique_ptr<Order>> orders;
+vector<shared_ptr<SpecialProduct>> specialProducts;
