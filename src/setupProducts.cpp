@@ -42,7 +42,7 @@ void setProductsDeclaration::setupProducts() {
         specialPrice = doubleValidation::getValidDouble(0.01);
 
         // Create and assign values before pushing
-        std::shared_ptr<SpecialProduct> specialItem = std::make_shared<SpecialProduct>();
+        shared_ptr<SpecialProduct> specialItem = std::make_shared<SpecialProduct>();
         specialItem->name = specialName;
         specialItem->price = specialPrice;
 
