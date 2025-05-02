@@ -90,7 +90,7 @@ void deleteOrderDeclaration::deleteOrder() {
         remove("data/ordersFile.csv");
         rename("data/temp.csv", "data/ordersFile.csv");
     } else {
-        cout << "Order not found." << endl;
+        cout << "Sorry, Order not found." << endl;
     }
 }
 
