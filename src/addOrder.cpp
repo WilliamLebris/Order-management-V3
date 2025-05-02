@@ -10,6 +10,7 @@
 #include <fstream> // Include for file writing
 #include <filesystem> // Include for checking current directory
 
+using namespace std;
 
 void addOrderDeclaration::addOrder() {
     if (orderCount >= MAX_ORDERS) {
@@ -17,7 +18,7 @@ void addOrderDeclaration::addOrder() {
         return;
     }
 
-    std::filesystem::create_directories("data");
+    filesystem::create_directories("data"); // just in case it doesn't exist
 
     cout << "Enter order details:\n";
     unique_ptr<Order> newOrder = make_unique<Order>();
@@ -27,8 +28,14 @@ void addOrderDeclaration::addOrder() {
         getline(cin, newOrder->customerInfo[i]);
     }
 
-    cout << "Enter order date (YYYY-MM-DD): ";
-    getline(cin, newOrder->date);
+    do {
+        cout << "Enter order date (YYYY-MM-DD): ";
+        getline(cin, newOrder->date);
+        if (!intValidation::isValidDate(newOrder->date)) {
+            cout << "Invalid date format or range. Please try again.\n";
+        }
+    } while (!intValidation::isValidDate(newOrder->date));
+
 
     double total = 0;
     cout << "Enter product quantities:\n";
