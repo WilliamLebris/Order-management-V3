@@ -3,6 +3,7 @@
 #include "../include/setupCustomerFields.h" // to access setupCustomerFields since it is in the folder OrderMangement
 #include "../include/menu.h"  // to access menu since it is in the folder OrderMangement
 #include "../include/UserDatabase.h"
+#include"../include/printStoreOrders.h"
 #include <iostream>
 #include <iomanip>
 #include<filesystem>
@@ -12,7 +13,7 @@
 using namespace std;
 int main(int argc, const char * argv[]) {
 
-    std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
+   // std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
 
     // just want to make something fancy to welcome the user
     srand(time(0));
