@@ -16,6 +16,7 @@ add_executable(Order_Manager_2
         include/globalVariable.h
         include/UserDatabase.h
         include/NameValidation.h
+        include/printStoreOrders.h
         src/setupProducts.cpp
         src/setupCustomerFields.cpp
         src/addOrder.cpp
@@ -28,4 +29,35 @@ add_executable(Order_Manager_2
         src/globalVariable.cpp
         src/UserDatabase.cpp
         src/NameValidation.cpp
-        src/main.cpp)
+        src/main.cpp
+        src/printStoreOrders.cpp
+)
+
+# ======================
+# GoogleTest Integration
+
+include(FetchContent)
+
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/heads/main.zip
+)
+
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+
+add_executable(RunTests
+        test/test_name_validation.cpp
+        src/getValidInt.cpp
+)
+
+target_link_libraries(RunTests
+        GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(RunTests)
