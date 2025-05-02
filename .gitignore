@@ -1,0 +1,23 @@
+# Build and CMake
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+*.cmake
+
+# JetBrains (CLion) specific
+.idea/
+*.iml
+
+# Compiled source
+*.o
+*.out
+*.obj
+*.exe
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
