@@ -67,7 +67,7 @@ void addOrderDeclaration::addOrder() {
     orders.push_back(std::move(newOrder));
     orderCount++;
 
-    cout << "Order added successfully! Total due: $" << fixed << setprecision(2) << total << "\n";
+    cout << "Order added successfully! Thanks!  Total due: $" << fixed << setprecision(2) << total << "\n";
 
     ofstream outputFile("data/ordersFile.csv", ios::app);
     if (outputFile.is_open()) {
