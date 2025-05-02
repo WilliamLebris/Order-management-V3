@@ -21,6 +21,15 @@
 using namespace std;
 
 
+enum MenuOption {
+    ADD_ORDER = 1,
+    DISPLAY_ORDERS,
+    SEARCH_ORDER,
+    DELETE_ORDER,
+    ADD_USER,
+    LOGIN_USER,
+    EXIT_PROGRAM
+};
 
 void menuDeclaration::menu() {
     int choice;
@@ -43,13 +52,13 @@ void menuDeclaration::menu() {
 
         // depending on the answer, execute a case
         switch (choice) {
-            case 1: addOrderDeclaration::addOrder(); break;
-            case 2: displayOrderDeclaration::displayOrders(); break;
-            case 3: searchOrderDeclaration::searchOrder(); break;
-            case 4: deleteOrderDeclaration::deleteOrder(); break;
-            case 5: addNewUser(); break;
-            case 6: login(); break;
-            case 7:
+            case ADD_ORDER: addOrderDeclaration::addOrder(); break;
+            case DISPLAY_ORDERS: displayOrderDeclaration::displayOrders(); break;
+            case SEARCH_ORDER: searchOrderDeclaration::searchOrder(); break;
+            case DELETE_ORDER: deleteOrderDeclaration::deleteOrder(); break;
+            case ADD_USER: addNewUser(); break;
+            case LOGIN_USER: login(); break;
+            case EXIT_PROGRAM:
                 // feedback feature
                 cout << "Exiting program...\n"<<endl;
                 cout << "Your experience is valuable"<<endl;
@@ -66,5 +75,5 @@ void menuDeclaration::menu() {
 
                 break;
         }
-    } while (choice != 8);
+    } while (choice != EXIT_PROGRAM);
 }
