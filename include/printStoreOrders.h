@@ -4,5 +4,5 @@
 
 #ifndef PRINTSTOREORDERS_H
 #define PRINTSTOREORDERS_H
-
+void readAllOrdersFromBinary();
 #endif //PRINTSTOREORDERS_H

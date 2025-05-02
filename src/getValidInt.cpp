@@ -46,3 +46,16 @@ bool intValidation::isValidDate(const string& date) {
     return year < 2025 && month >= 1 && month <= 12 && day >= 1 && day <= 31;
 }
 
+int intValidation::validateLettersOrDigits(const std::string& input) {
+    if (input.empty()) return 0;
+
+    bool allLetters = true, allDigits = true;
+    for (char ch : input) {
+        if (!isalpha(ch)) allLetters = false;
+        if (!isdigit(ch)) allDigits = false;
+    }
+
+    if (allLetters) return 1;
+    if (allDigits) return 2;
+    return 0; // Mixed or contains symbols/spaces
+}

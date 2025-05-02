@@ -4,6 +4,7 @@
 
 #include "../include/UserDatabase.h"
 #include "../include/NameValidation.h"
+
 #include <iostream>
 #include <unordered_map>
 #include <string>
@@ -79,6 +80,7 @@ bool login() {
 
 // Add new user (only if logged in)
 void addNewUser() {
+
     string firstName, lastName, password;
     cout << "Add a new user:\n";
 

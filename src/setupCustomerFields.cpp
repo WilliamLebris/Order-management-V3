@@ -15,7 +15,22 @@ void setCustomerDeclaration::setupCustomerFields() {
 
     // we can't use for ranged based loop here because we need to stop after the loop depending on the user answer
     for (int i = 0; i < numFields; i++) {
-        cout << "Enter field #" << i + 1 << " (e.g., Name, Phone): ";
-        getline(cin, customerFields[i]);   //storing customer informations
+        while (true) {
+            cout << "Enter field #" << i + 1 << " (e.g., Name, Phone, ID #): ";
+            getline(cin, customerFields[i]);
+
+            int result = intValidation::validateLettersOrDigits(customerFields[i]);
+
+            if (result == 1) {
+                cout << "Accepted: All letters (e.g., Name).\n";
+                break;
+            } else if (result == 2) {
+                cout << "Accepted: All digits (e.g., ID/Phone).\n";
+                break;
+            } else {
+                cout << "Invalid input. Please enter only letters or only digits.\n";
+            }
+        }
     }
+
 }
