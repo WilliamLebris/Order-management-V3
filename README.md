@@ -22,6 +22,25 @@ Google Test for unit testing
 
 
 📦 Folder Structure
+Order-Manager-2/
+│
+├── src/                      # All .cpp files here
+│
+├── include/                  # All .hpp header files here
+│
+├── test/                     # All test files here
+│   └── test_orders.cpp
+│
+├── data/                     # CSV and binary files here
+│
+├── extern/                   # External dependencies (e.g., Google Test)
+│
+├── CMakeLists.txt            # CMake build configuration
+├── .gitignore                # Git ignore file
+├── README.md                 # Project readme
+├── LICENSE                   # Project license
+└── main.cpp                  # Main application entry point
+
 
 
 🧠 Sample Use Case
@@ -71,28 +90,7 @@ This command compiles the test files (test/test_orders.cpp), source files (src/*
 
 This will execute the tests and output the results to your terminal.
 
-------------------------------------------------------
-Running the Project in CLion (Optional)
-If you're using CLion, you can follow these additional steps to run the project within the IDE:
 
-Open CLion and open the project folder.
-
-Configure CLion to use g++:
-
-Go to File > Settings (or CLion > Preferences on macOS).
-
-Under Build, Execution, Deployment > Toolchains, set the CMake and C++ compilers to use g++.
-
-Run the tests:
-
-CLion should automatically detect your g++ compiler settings, and you can use the "Run" button to build and execute the tests from within the IDE.
-
-Notes
-If you encounter any issues with Google Test or g++, ensure that the required libraries are properly linked and that the paths to the header files and libraries are correct.
-
-If you'd like to switch to a CMake-based build, follow the CMake setup instructions below.
-
--------------------------------------------
 CMake Setup (Optional for Future Setup)
 If you'd like to use CMake for easier build management, follow these steps:
 
