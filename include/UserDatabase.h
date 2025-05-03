@@ -11,6 +11,9 @@
 
 using namespace std;
 
+// Declare external user database so test can access it
+extern std::unordered_map<std::string, std::string> userDatabase;
+
 bool isValidPassword(const std::string& password);
 void createFirstAccount();
 bool login();

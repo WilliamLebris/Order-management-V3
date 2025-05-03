@@ -51,7 +51,7 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(RunTests
-        test/test_name_validation.cpp
+        test/test_orders.cpp
         src/getValidInt.cpp
 )
 
