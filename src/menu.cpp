@@ -9,18 +9,22 @@
 
 
 // since our menu function use others function, it is important to have their library (import).
+//
+// Created by William Tissi on 5/1/25.
+//
+
 #include "../include/menu.h"
 #include "../include/addOrder.h"
 #include "../include/displayOrders.h"
 #include "../include/searchOrder.h"
 #include "../include/deleteOrder.h"
-
 #include "../include/getValidInt.h"
 #include "../include/UserDatabase.h"
 #include "../include/printStoreOrders.h"
 #include <iostream>
-using namespace std;
+#include <thread>
 
+using namespace std;
 
 enum MenuOption {
     ADD_ORDER = 1,
@@ -36,24 +40,20 @@ enum MenuOption {
 void menuDeclaration::menu() {
     int choice;
     int feedbackResponse;
-    int rateExperience;
     do {
-
-        // proposing different options that my program have
         cout << "\n===== MENU =====\n";
         cout << "1. Add Order\n";
         cout << "2. Display Orders\n";
         cout << "3. Search Order\n";
         cout << "4. Delete Order\n";
-        cout << "5. Print all the orders since the store opened"<<endl;
-        cout << "6. Add a new user"<<endl;
-        cout << "7. Log in as another users"<<endl;
+        cout << "5. Print all the orders since the store opened\n";
+        cout << "6. Add a new user\n";
+        cout << "7. Log in as another user\n";
         cout << "8. Exit\n";
-        cout<< "====================\n";
+        cout << "====================\n";
         cout << "Enter your choice: ";
-        choice = intValidation::getValidInt(1, 8);  // make sure the user doesn't try to crash the program
+        choice = intValidation::getValidInt(1, 8);
 
-        // depending on the answer, execute a case
         switch (choice) {
             case ADD_ORDER: addOrderDeclaration::addOrder(); break;
             case DISPLAY_ORDERS: displayOrderDeclaration::displayOrders(); break;
@@ -63,20 +63,22 @@ void menuDeclaration::menu() {
             case ADD_USER: addNewUser(); break;
             case LOGIN_USER: login(); break;
             case EXIT_PROGRAM:
-                // feedback feature
-                cout << "Exiting program...\n"<<endl;
-                cout << "Your experience is valuable"<<endl;
-                cout << "Do you mind giving us some feedback about your experience with this program?"<<endl;
-                cout << "Enter 1 for yes or 2 for no"<<endl;
+                cout << "Exiting program...\n" << endl;
+                cout << "Your experience is valuable\n";
+                cout << "Do you mind giving us some feedback about your experience with this program?\n";
+                cout << "Enter 1 for yes or 2 for no\n";
                 feedbackResponse = intValidation::getValidInt(1, 2);
-                //now using ternary operator to have some feedback in case the user want to leave feedback
 
-                (feedbackResponse == 1)
-                    ? (cout << "How would you rate the program on a scale of 0 to 10\n",
-                       rateExperience = intValidation::getValidInt(0, 10),
-                       cout << "***    Thank you !!!    ***\n"<<endl)
-                    : cout << "Okay !!\n";
-
+                if (feedbackResponse == 1) {
+                    std::thread feedbackThread([]() {
+                        cout << "How would you rate the program on a scale of 0 to 10\n";
+                        int rateExperience = intValidation::getValidInt(0, 10);
+                        cout << "***    Thank you !!!    ***\n" << endl;
+                    });
+                    feedbackThread.join();
+                } else {
+                    cout << "Okay !!\n";
+                }
                 break;
         }
     } while (choice != EXIT_PROGRAM);
