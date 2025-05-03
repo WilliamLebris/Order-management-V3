@@ -79,7 +79,7 @@ Steps to Build and Run
 1. Clone the Repository
    Clone the project repository to your local machine:
 
-"->" git clone https://github.com/yourusername/Order-Manager-2.git
+"->" git clone https://github.com/WilliamLebris/Customizable-Order-Manager
 cd Order-Manager-2
 
 2. Compile the Project Using g++
