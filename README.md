@@ -1,6 +1,8 @@
 🧾 Order Management System
 This is a C++  application for managing customer orders, product information, user accounts, and special products. It simulates a basic system for stores or restaurants to keep track of orders, validate input, and manage users securely.
 
+
+**************************************************************************************
 📁 Features
 ✅ Account Management: Create and log in as users with secure password validation.
 
@@ -13,12 +15,16 @@ This is a C++  application for managing customer orders, product information, us
 ✔️ Input Validation: Ensures data is clean.
 
 🔎 Unit Testing: Uses Google Test (gtest) to ensure code reliability.
+***************************************************************************
+
+
 
 🛠️ Technologies
 
 STL (unordered_map, map, vector, memory)
 
 Google Test for unit testing
+****************************************************************** 
 
 
 📦 Folder Structure
@@ -40,6 +46,7 @@ Order-Manager-2/
 ├── README.md                 # Project readme
 ├── LICENSE                   # Project license
 └── main.cpp                  # Main application entry point
+*************************************************************************
 
 
 
@@ -51,6 +58,8 @@ Logs in and sets up customer fields like Name and Phone.
 Adds products and their prices (e.g., Burger - $8.50).
 
 Takes an order from a customer and stores it in a .csv file.
+******************************************************************************
+
 
 
 Prerequisites
@@ -63,6 +72,8 @@ Google Test (for running unit tests)
 CLion or another C++ IDE (optional, but recommended for ease of use)
 
 CMake (if you later want to configure with CMake)
+*************************************************************************
+
 
 Steps to Build and Run
 1. Clone the Repository
@@ -89,6 +100,8 @@ This command compiles the test files (test/test_orders.cpp), source files (src/*
 
 
 This will execute the tests and output the results to your terminal.
+*************************************************************************
+
 
 
 CMake Setup (Optional for Future Setup)
@@ -108,7 +121,7 @@ Build the project:
 Run the tests:
 
 "->" ./test_runner
-
+*************************************************************************
 
 End Notes
 Feel free to reach out if you encounter any issues or have questions!
