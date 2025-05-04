@@ -79,48 +79,19 @@ Steps to Build and Run
 1. Clone the Repository
    Clone the project repository to your local machine:
 
-"->" git clone https://github.com/WilliamLebris/Customizable-Order-Manager
-cd Order-Manager-2
+--->      git clone https://github.com/WilliamLebris/Customizable-Order-Manager
+--->      cd Order-Manager
+--->      mkdir build
+--->      cd build
+--->      cmake ..
+--->      make
 
-2. Compile the Project Using g++
-   Run the following command to compile the project using g++:
+To Run the project 
+--->      ./Order_Manager_2
 
-"->" g++ -std=c++17 -Iinclude -Iextern/googletest/googletest/include -Iextern/googletest/googletest \
-test/test_orders.cpp src/*.cpp \
-extern/googletest/build/lib/libgtest.a extern/googletest/build/lib/libgtest_main.a \
--pthread -o test_runner
+To run the Tests
+--->      ./RunTests
 
-
-This command compiles the test files (test/test_orders.cpp), source files (src/*.cpp), and links them with Google Test libraries.
-
-3. Run the Test Runner
-   After compilation, you can run the tests with the following command:
-
-"->" ./test_runner
-
-
-This will execute the tests and output the results to your terminal.
-*************************************************************************
-
-
-
-CMake Setup (Optional for Future Setup)
-If you'd like to use CMake for easier build management, follow these steps:
-
-Create a build directory:
-
-
-"->" mkdir build
-"->" cd build
-Configure the project:
-
-"->" cmake ..
-Build the project:
-
-"->" make
-Run the tests:
-
-"->" ./test_runner
 *************************************************************************
 
 End Notes
