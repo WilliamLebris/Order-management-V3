@@ -3,11 +3,19 @@
 //
 #include <gtest/gtest.h>
 #include "../include/getValidInt.h"
+#include "../include/getValidDouble.h"
+#include "../include/menu.h"
 #include "../include/addOrder.h"
 #include "../include/deleteOrder.h"
 #include "../include/displayOrders.h"
 #include "../include/globalVariable.h"
 #include "../include/UserDatabase.h"
+#include "../src/deleteOrder.cpp" // Directly include for testing helper functions
+#include "../include/NameValidation.h"
+#include "../include/printStoreOrders.h"
+#include "../include/searchOrder.h"
+#include "../include/setupCustomerFields.h"
+#include "../include/setupProducts.h"
 
 #include <fstream>
 #include <sstream>
@@ -204,6 +212,26 @@ TEST(UserDatabaseTest, AddNewUser) {
     EXPECT_NE(output.str().find("New user created successfully"), std::string::npos);
 }
 
+
+// Test for toLowerCase()
+TEST(HelperFunctionsTest, ToLowerCaseConvertsCorrectly) {
+    EXPECT_EQ(toLowerCase("HeLLo"), "hello");
+    EXPECT_EQ(toLowerCase("WORLD"), "world");
+    EXPECT_EQ(toLowerCase("123"), "123");
+    EXPECT_EQ(toLowerCase("MiXeD123"), "mixed123");
+}
+
+// Test for trim()
+TEST(HelperFunctionsTest, TrimRemovesSpacesCorrectly) {
+    EXPECT_EQ(trim("   hello   "), "hello");
+    EXPECT_EQ(trim("world"), "world");
+    EXPECT_EQ(trim("   spaced words   "), "spaced words");
+}
+
+// Basic assertion using ASSERT_TRUE
+TEST(BasicTest, TrueIsTrue) {
+    ASSERT_TRUE(1 == 1);
+}
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
