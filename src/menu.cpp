@@ -23,7 +23,7 @@
 #include "../include/printStoreOrders.h"
 #include <iostream>
 #include <thread>
-
+// here i am basically just using enums instead of switch
 using namespace std;
 
 enum MenuOption {

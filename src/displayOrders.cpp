@@ -6,26 +6,26 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
+using namespace std;
 namespace displayOrderDeclaration {
-
+// here basically we are just reading from the csv file to print orders since they are saved there
     void displayOrders() {
-        std::ifstream inputFile("data/ordersFile.csv");
+        ifstream inputFile("data/ordersFile.csv");
 
         if (!inputFile.is_open()) {
-            std::cout << "Sorry, Error opening file: ordersFile.csv\n";
+            cout << "Sorry, Error opening file: ordersFile.csv\n";
             return;
         }
 
-        std::string line;
-        std::string orderBuffer;
+        string line;
+        string orderBuffer;
 
-        while (std::getline(inputFile, line)) {
+        while (getline(inputFile, line)) {
             // Detect the start of a new order
             if (line == "====================") {
                 if (!orderBuffer.empty()) {
                     // Print the collected order details
-                    std::cout << orderBuffer << "\n";
+                    cout << orderBuffer << "\n";
                     orderBuffer.clear(); // Reset for the next order
                 }
             } else {
@@ -35,7 +35,7 @@ namespace displayOrderDeclaration {
 
         // Print the last order if any
         if (!orderBuffer.empty()) {
-            std::cout << orderBuffer << "\n";
+            cout << orderBuffer << "\n";
         }
 
         inputFile.close();

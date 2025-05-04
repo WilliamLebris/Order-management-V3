@@ -28,7 +28,7 @@ int intValidation::getValidInt(int min, int max) {
     }
 }
 
-
+// function to check the date of the order to make sure the user doesn't try to fool us buyentering wrong things
 bool intValidation::isValidDate(const string& date) {
     if (date.length() != 10 || date[4] != '-' || date[7] != '-') return false;
 
@@ -47,7 +47,7 @@ bool intValidation::isValidDate(const string& date) {
 
     return year < 2025 && month >= 1 && month <= 12 && day >= 1 && day <= 31;
 }
-
+//the order details has to be either a string or and int, like for instance, name, or ID, we can have something like nd34f, it doesn't means anything
 int intValidation::validateLettersOrDigits(const std::string& input) {
     if (input.empty()) return 0;
 

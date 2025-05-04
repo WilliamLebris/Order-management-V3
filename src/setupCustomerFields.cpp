@@ -18,6 +18,7 @@ void setCustomerDeclaration::setupCustomerFields() {
         while (true) {
             cout << "Enter field #" << i + 1 << " (e.g., Name, Phone, ID #): ";
             getline(cin, customerFields[i]);
+            //the order details has to be either a string or and int, like for instance, name, or ID, we can have something like nd34f, it doesn't means anything
 
             int result = intValidation::validateLettersOrDigits(customerFields[i]);
 

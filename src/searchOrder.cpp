@@ -19,14 +19,14 @@ string convertionLowerCase(const string &str) {
     return lowerStr;
 }
 
-// Function to trim leading and trailing spaces
+// Function to trim leading and trailing spaces, just to make sure to got it right
 string Trim(const string &str) {
     size_t first = str.find_first_not_of(' ');
     size_t last = str.find_last_not_of(' ');
     return (first == string::npos || last == string::npos) ? "" : str.substr(first, (last - first + 1));
 }
 
-// Search Order by Name or Date in ordersFile.csv
+// Search Order by Name in ordersFile.csv
 void searchOrderDeclaration::searchOrder() {
     string searchQuery;
 
@@ -54,7 +54,7 @@ void searchOrderDeclaration::searchOrder() {
     while (getline(inFile, line)) {
         stringstream ss(line);
 
-        // Check if the line contains "name:" and extract the customer name
+        // Check first if the line contains "name:" and extract the customer name
         if (line.find("name:") != string::npos) {
             size_t startPos = line.find("name:") + 5;
 
@@ -84,7 +84,7 @@ void searchOrderDeclaration::searchOrder() {
             cout << "Order Found!\n";
             cout << "Date: (" << orderDate << "\n";
             cout << "Name: " << customerName << "\n";
-
+// just in case the order doesn't have a phone number on it
             bool OrderhasPhoneNum = false;
             for (int i = 0; i < 5; i++) {
                 if (customerFields[i] == "phone" || customerFields[i] == "Phone") {

@@ -14,8 +14,9 @@
 
 using namespace std;
 
+//using namespacing because i dont want to be confused about what add order to use
 void addOrderDeclaration::addOrder() {
-    if (orderCount >= MAX_ORDERS) {
+    if (orderCount >= MAX_ORDERS) {  // we can change the maximum order in the global variable file
         cout << "Order limit reached! You may want to delete some really old orders.\n";
         return;
     }
@@ -23,13 +24,16 @@ void addOrderDeclaration::addOrder() {
     filesystem::create_directories("data"); // just in case it doesn't exist
 
     cout << "Enter order details:\n";
+    // my thought process here is to have a smart pointer here to store our order instead of creating orders
+    //over and over again using an array, by using smart pointer, it helps saved a lot of memory since it
+    //gets deleted automatically
     unique_ptr<Order> newOrder = make_unique<Order>();
 
     for (int i = 0; i < numFields; i++) {
         cout << customerFields[i] << ": ";
         getline(cin, newOrder->customerInfo[i]);
     }
-
+ // we dont want to have wrong date on order for security purpose, so we have to make sure the user enter a valid date
     do {
         cout << "Enter order date (YYYY-MM-DD): ";
         getline(cin, newOrder->date);
@@ -78,6 +82,9 @@ void addOrderDeclaration::addOrder() {
 
     cout << "Order added successfully! Thanks!  Total due: $" << fixed << setprecision(2) << total << "\n";
 
+    //now creating or opening my file to store the new order created, that is why i have ios::app mode because
+    //if the file already exist we don't need to create it again
+    //just storing the orders into the csv file
     ofstream outputFile("data/ordersFile.csv", ios::app);
     if (outputFile.is_open()) {
         if (outputFile.tellp() == 0) {
@@ -96,9 +103,11 @@ void addOrderDeclaration::addOrder() {
         outputFile << "-------------------------\n";
         outputFile.close();
     }
-
+// my thought process is to saved all the files of the store into a file, so the store can check all the orders
+    // the made since the opened, since it will be a large data, that is why i used binary file also in the app mode
     ofstream binaryFile("data/ordersFile.bin", ios::binary | ios::app);
     if (binaryFile.is_open()) {
+        //calculate all the lenght to make it nicer
         size_t nameLength = rawOrder->customerInfo[0].size();
         binaryFile.write(reinterpret_cast<char*>(&nameLength), sizeof(nameLength));
         binaryFile.write(rawOrder->customerInfo[0].c_str(), nameLength);
@@ -122,6 +131,7 @@ void addOrderDeclaration::addOrder() {
 
         binaryFile.write(reinterpret_cast<char*>(&rawOrder->totalPrice), sizeof(rawOrder->totalPrice));
         binaryFile.close();
+        // now that we wrote what we wanted we can close it
     }
 }
 

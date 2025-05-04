@@ -10,16 +10,23 @@
 #include"../include/addOrder.h"
 using namespace std;
 
+// now here is where we read form the binary file, since the binary file contains all of the store's orders, we just print them
 void readAllOrdersFromBinary() {
     ifstream binaryFile("data/ordersFile.bin", ios::binary);
+
+    // check if opening
     if (!binaryFile.is_open()) {
         cout << "No binary file found or failed to open.\n";
         return;
     }
 
     int orderNumber = 1;
+    // as long as we are not at the end of the file, ...
     while (binaryFile.peek() != EOF) {
+        //now since we are going to read from the file, we have to save it somewhere before priting out from that place
+
         string name, phone, date;
+
         unordered_map<string, int> productQuantities;
         double totalPrice;
 

@@ -12,5 +12,5 @@ int numProducts = 0, numFields = 0, orderCount = 0;
 map<string, double> productMap;
 
 string customerFields[5];
-vector<unique_ptr<Order>> orders;
-vector<shared_ptr<SpecialProduct>> specialProducts;
+vector<unique_ptr<Order>> orders; // now using unique pointer for my orders, Let'ss gooo
+vector<shared_ptr<SpecialProduct>> specialProducts; // and share pointer for out special product, like a 500K wine
