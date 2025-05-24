@@ -35,10 +35,13 @@ add_library(OrderManagerLib
         src/menu.cpp
         src/getValidInt.cpp
         src/getValidDouble.cpp
-        src/globalVariable.cpp
+        src/order_system.cpp
         src/UserDatabase.cpp
         src/NameValidation.cpp
         src/printStoreOrders.cpp
+        src/order.cpp
+        src/file_manager.cpp
+        src/product.cpp
 )
 
 # =======================
@@ -54,10 +57,15 @@ add_executable(Order_Manager_2
         include/menu.h
         include/getValidInt.h
         include/getValidDouble.h
-        include/globalVariable.h
+        include/order_system.h
         include/UserDatabase.h
         include/NameValidation.h
         include/printStoreOrders.h
+        include/product.h
+        include/order.h
+        include/file_manager.h
+        include/exception.h
+        include/product_factory.h
 )
 
 target_link_libraries(Order_Manager_2 OrderManagerLib)
