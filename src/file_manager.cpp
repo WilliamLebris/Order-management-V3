@@ -32,6 +32,7 @@ bool CSVFileManager::OrderHasPhoneNumber() const {
 }
 
 // Main implementations
+/*
 void CSVFileManager::saveOrder(const Order& order) {
     filesystem::create_directories("data");
     ofstream outputFile("data/ordersFile.csv", ios::app);
@@ -43,25 +44,31 @@ void CSVFileManager::saveOrder(const Order& order) {
         outputFile << "====================\nList of all orders:\n";
     }
 
-    outputFile << "Order #" << OrderSystem::getOrderCount() << " (Date: " 
+    outputFile << "Order #" << OrderSystem::getOrderCount() << " (Date: "
               << order.getDate() << ")\n";
-    
+
     const auto& customerInfo = order.getCustomerInfo();
     const auto& fields = OrderSystem::getCustomerFields();
-    
+
     for (size_t i = 0; i < fields.size(); ++i) {
         outputFile << fields[i] << ": " << customerInfo[i] << "\n";
     }
-    
+
     for (const auto& [product, quantity] : order.getProductQuantities()) {
         outputFile << product << ": " << quantity << "\n";
     }
-    
-    outputFile << "Total Price: $" << fixed << setprecision(2) 
+
+    outputFile << "Total Price: $" << fixed << setprecision(2)
               << order.getTotalPrice() << "\n-------------------------\n";
 }
+*/
 
+ //function used to delete orders
 bool CSVFileManager::deleteOrder(const string& customerName) {
+
+    cout << "using delete order in file manager "<<endl;
+
+
     ifstream inFile("data/ordersFile.csv");
     ofstream tempFile("data/temp.csv");
     
@@ -106,7 +113,10 @@ bool CSVFileManager::deleteOrder(const string& customerName) {
     return found;
 }
 
+// the function used to display order
 void CSVFileManager::displayOrders() {
+    cout << "using the display order in csv file manager"<<endl;
+
     ifstream inputFile("data/ordersFile.csv");
     if (!inputFile) {
         throw runtime_error("Error opening orders file!");
@@ -129,7 +139,11 @@ void CSVFileManager::displayOrders() {
     }
 }
 
+// the function used to search order
 void CSVFileManager::searchOrder() {
+
+    cout << "using search order from file_manager "<<endl;
+
     string searchQuery;
     cout << "Enter customer name or date to search: ";
     getline(cin, searchQuery);
@@ -180,6 +194,8 @@ void CSVFileManager::searchOrder() {
 }
 
 void CSVFileManager::printAllOrders() {
+
+    cout << "using print all order from file manager "<<endl;
     ifstream binaryFile("data/ordersFile.bin", ios::binary);
     if (!binaryFile) {
         throw runtime_error("Error opening binary orders file!");
@@ -231,4 +247,6 @@ void CSVFileManager::printAllOrders() {
         }
         cout << "Total: $" << fixed << setprecision(2) << total << "\n";
     }
+
+    cout << "finished printing out order from file manager"<<endl;
 }
