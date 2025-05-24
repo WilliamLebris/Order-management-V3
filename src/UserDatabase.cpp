@@ -1,25 +1,15 @@
-//
-// Created by William Tissi on 5/1/25.
-//
-
 #include "../include/UserDatabase.h"
 #include "../include/NameValidation.h"
-
 #include <iostream>
-#include <unordered_map>
-#include <string>
 #include <cctype>
-
 
 using namespace std;
 
+bool UserDatabase::isInitialized() {
+    return !users.empty();
+}
 
-unordered_map<string, string> userDatabase;
-bool loggedIn = false;
-
-
-// Helper function to validate password
-bool isValidPassword(const string& password) {
+bool UserDatabase::isValidPassword(const string& password) {
     bool hasDigit = false, hasAlpha = false;
     for (char c : password) {
         if (isdigit(c)) hasDigit = true;
@@ -28,10 +18,14 @@ bool isValidPassword(const string& password) {
     return hasDigit && hasAlpha;
 }
 
-// Create first account
-void createFirstAccount() {
+string UserDatabase::toLowerCase(const string& str) {
+    string lowerStr = str;
+    transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);
+    return lowerStr;
+}
+
+void UserDatabase::createFirstAccount() {
     string firstName, lastName, password;
-    cout << "Create your first account.\n";
     cout << "First Name: ";
     cin >> firstName;
     cout << "Last Name: ";
@@ -42,68 +36,50 @@ void createFirstAccount() {
         cin >> password;
     } while (!isValidPassword(password));
 
-    userDatabase[firstName + lastName] = password;
-   cout << "Account created successfully!\n";
+    users[toLowerCase(firstName + lastName)] = password;
+    cout << "Admin account created successfully!\n";
 }
 
-// Login function
-bool login() {
+bool UserDatabase::login() {
     string firstName, lastName, password;
-    cout << "Login:\n";
-
-    cout << "First Name: ";
+    cout << "Login:\nFirst Name: ";
     cin >> firstName;
-    if (!isAllLetters(firstName)) {
-        cout << "First name must contain only letters.\n";
-        return false;
-    }
-
     cout << "Last Name: ";
     cin >> lastName;
-    if (!isAllLetters(lastName)) {
-        cout << "Last name must contain only letters.\n";
-        return false;
-    }
-
     cout << "Password: ";
     cin >> password;
 
     string fullName = toLowerCase(firstName + lastName);
-    if (userDatabase.find(fullName) != userDatabase.end() && userDatabase[fullName] == password) {
+    if (users.find(fullName) != users.end() && users[fullName] == password) {
+        loggedIn = true;
         cout << "Login successful!\n";
         return true;
-    } else {
-        cout << "Invalid credentials.\n";
-        return false;
     }
+    cout << "Invalid credentials.\n";
+    return false;
 }
 
-// Add new user (only if logged in)
-void addNewUser() {
+void UserDatabase::addNewUser() {
+    if (!loggedIn) {
+        cout << "You must be logged in to add users.\n";
+        return;
+    }
 
     string firstName, lastName, password;
-    cout << "Add a new user:\n";
-
-    cout << "First Name: ";
+    cout << "Add new user:\nFirst Name: ";
     cin >> firstName;
-    if (!isAllLetters(firstName)) {
-        cout << "First name must contain only letters.\n";
-        return;
-    }
-
     cout << "Last Name: ";
     cin >> lastName;
-    if (!isAllLetters(lastName)) {
-        cout << "Last name must contain only letters.\n";
-        return;
-    }
 
     do {
         cout << "Password (must contain letter and number): ";
         cin >> password;
     } while (!isValidPassword(password));
 
-    string fullName = toLowerCase(firstName + lastName);
-    userDatabase[fullName] = password;
-    cout << "New user created successfully!\n";
+    users[toLowerCase(firstName + lastName)] = password;
+    cout << "New user added successfully!\n";
+}
+
+bool UserDatabase::isLoggedIn() {
+    return loggedIn;
 }
