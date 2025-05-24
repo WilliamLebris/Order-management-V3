@@ -1,5 +1,6 @@
 #include "../include/order.h"
 #include <stdexcept>
+#include <iostream>
 
 Order::Order() : totalPrice(0.0), isActive(true) {
     // Initialize all customer info fields to empty strings
@@ -10,6 +11,7 @@ Order::Order() : totalPrice(0.0), isActive(true) {
 
 // Setters
 void Order::setCustomerInfo(const std::vector<std::string>& info) {
+    std::cout << "using set customer info in order.cpp"<<std::endl;
     if (info.size() != 5) {
         throw std::invalid_argument("Customer info must contain exactly 5 elements");
     }
@@ -18,7 +20,9 @@ void Order::setCustomerInfo(const std::vector<std::string>& info) {
     }
 }
 
+// now that we have created some customer field, this is just adding some value to it such as the name of the customer
 void Order::setCustomerField(int index, const std::string& value) {
+    std::cout<< " using set customer field in order.cpp"<<std::endl;
     if (index >= 0 && index < 5) {
         customerInfo[index] = value;
     } else {
