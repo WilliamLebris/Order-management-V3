@@ -10,6 +10,9 @@ using namespace std;
 //Setup Customer Fields (e.g., Name, Phone). I use 5 max the max for this program but we can always increase it
 // setupCustomerFields.cpp
 void setCustomerDeclaration::setupCustomerFields() {
+
+    cout << "using set up customer field in setup customer field"<<endl;
+
     cout << "How many details should customers provide? (e.g., Name, Phone) Max "
          << OrderSystem::MAX_CUSTOMER_FIELDS << ": ";
     int numFields = intValidation::getValidInt(1, OrderSystem::MAX_CUSTOMER_FIELDS);
