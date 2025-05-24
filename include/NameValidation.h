@@ -9,7 +9,6 @@
 #include <string>
 using namespace std;
 
-string toLowerCase(const string& nameReceived);
-bool isAllLetters(const string& s);
-
+string convertToLowerCase(const std::string& nameReceived);
+bool isAllLetters(const std::string& s);
 #endif //NAMEVALIDATION_H

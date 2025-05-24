@@ -1,22 +1,24 @@
-//
-// Created by William Tissi on 5/1/25.
-//
+#ifndef USER_DATABASE_H
+#define USER_DATABASE_H
 
-#ifndef USERDATABASE_H
-#define USERDATABASE_H
-#include <stdio.h>
-#include<map>
-#include <iostream>
+#include <string>
+#include <unordered_map>
 
+class UserDatabase {
+private:
+    static inline std::unordered_map<std::string, std::string> users;
+    static inline bool loggedIn = false;
 
-using namespace std;
+    static bool isValidPassword(const std::string& password);
+    static bool isAllLetters(const std::string& str);
+    static std::string toLowerCase(const std::string& str);
 
-// Declare external user database so test can access it
-extern std::unordered_map<std::string, std::string> userDatabase;
+public:
+    static bool isInitialized();
+    static void createFirstAccount();
+    static bool login();
+    static void addNewUser();
+    static bool isLoggedIn();
+};
 
-bool isValidPassword(const std::string& password);
-void createFirstAccount();
-bool login();
-void addNewUser();
-
-#endif //USERDATABASE_H
+#endif
