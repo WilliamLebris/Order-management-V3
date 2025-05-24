@@ -1,4 +1,4 @@
-#include "../include/order_system.h"
+#include "order_system.h"
 #include "../include/UserDatabase.h"
 #include "include/setupProducts.h"
 #include "include/setupCustomerFields.h"
@@ -18,6 +18,7 @@ int main() {
         // Initialize system
         OrderSystem::initialize();
 
+        /*
         // User authentication
         if (!UserDatabase::isInitialized()) {
             std::cout << "=== CREATE ADMIN ACCOUNT ===\n";
@@ -27,7 +28,7 @@ int main() {
         while (!UserDatabase::login()) {
             std::cout << "Login failed. Try again.\n";
         }
-
+*/
         // First-time setup
         if (!OrderSystem::hasProducts()) {
             std::cout << "\n=== PRODUCT SETUP ===\n";
