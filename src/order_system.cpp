@@ -4,27 +4,12 @@
 #include "../include/order_system.h"
 #include "setupProducts.h"
 #include "../include/product.h"
-/*
-using namespace std;
-double totalRevenue = 0;
 
-
-int numProducts = 0, numFields = 0, orderCount = 0;
-
-map<string, double> productMap;
-
-string customerFields[5];
-vector<unique_ptr<Order> > orders; // now using unique pointer for my orders, Let'ss gooo
-vector<shared_ptr<SpecialProduct> > specialProducts; // and share pointer for out special product, like a 500K wine
-// order_system.cpp
-
-*/
 #include "../include/order_system.h"
 #include "../include/order_system.h"
 #include "../include/order.h"
 #include "../include/menu.h"
 
-#include "../include/product.h"
 #include "../include/exception.h"
 #include <map>
 #include <vector>
@@ -37,7 +22,11 @@ void OrderSystem::initialize() {
     customerFields.reserve(MAX_CUSTOMER_FIELDS);
     orders.reserve(MAX_ORDERS);
 }
+
+// this is called once we finished setting up the customer field and set up product, it is just to make sure that
+//we didnt bypass the code, so before displaying the menu, we make sure that we have products and customer field set up
 void OrderSystem::run() {
+    std::cout << "using run in order_system..." << std::endl;
     try {
         // Check if system is properly initialized
         if (!hasProducts()) {
@@ -47,7 +36,7 @@ void OrderSystem::run() {
             throw OrderException("No customer fields configured - run setupCustomerFields first");
         }
 
-        // Start the main menu
+        // calling the main menu now
         menuDeclaration::menu();
 
     } catch (const OrderException& e) {
@@ -76,6 +65,8 @@ const std::map<std::string, double>& OrderSystem::getProductMap() {
 }
 
 void OrderSystem::addProduct(const std::string& name, double price) {
+    std::cout<< "using add product in order_system"<<std::endl;
+
     if (productMap.size() >= MAX_PRODUCTS) {
         throw OrderException("Maximum product limit reached");
     }
@@ -90,7 +81,10 @@ const std::vector<std::string>& OrderSystem::getCustomerFields() {
     return customerFields;
 }
 
+// just use to save the customer field  (called by setup customer field .cpp after retrieving the field
 void OrderSystem::setCustomerFields(const std::vector<std::string>& fields) {
+    std::cout <<"using set customer field in order_system"<<std::endl;
+
     if (fields.size() > MAX_CUSTOMER_FIELDS) {
         throw OrderException("Exceeded maximum customer fields");
     }
@@ -102,7 +96,10 @@ const std::vector<std::unique_ptr<Order>>& OrderSystem::getOrders() {
     return orders;
 }
 
+// so addorder.cpp succesfully created the order now call this add order below to make sure we are not out of range
+//then move the ownership and save the order into a vector
 void OrderSystem::addOrder(std::unique_ptr<Order> order) {
+    std::cout<< "using add order in order_system"<<std::endl;
     if (orderCount >= MAX_ORDERS) {
         throw OrderException("Maximum order limit reached");
     }
@@ -113,26 +110,17 @@ void OrderSystem::addOrder(std::unique_ptr<Order> order) {
     orderCount++;
 }
 
-bool OrderSystem::removeOrder(const std::string& customerName) {
-    auto it = std::find_if(orders.begin(), orders.end(),
-        [&](const std::unique_ptr<Order>& o) {
-            return o->getCustomerInfo()[0] == customerName;
-        });
-
-    if (it != orders.end()) {
-        orders.erase(it);
-        orderCount--;
-        return true;
-    }
-    return false;
-}
 
 // Special products methods
 const std::vector<std::shared_ptr<Product>>& OrderSystem::getSpecialProducts() {
     return specialProducts;
 }
 
+// once we set up the special product in SetupProduct.cpp, this is being called to save it into the shared pointer vector
 void OrderSystem::addSpecialProduct(std::shared_ptr<Product> product) {
+    std::cout << "using add special product in order_system"<<std::endl;
+
+
     if (!product) {
         throw OrderException("Invalid product object");
     }
