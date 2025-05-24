@@ -1,137 +1,157 @@
-//
-// Created by William Tissi on 5/1/25.
-//
-
 #include "../include/addOrder.h"
-#include "../include/globalVariable.h"
-#include <iomanip>
+#include "../include/order_system.h"
+#include "../include/order.h"
+#include "../include/product.h"
 #include "../include/getValidInt.h"
-#include <memory>  // For std::unique_ptr and std::shared_ptr
-#include <vector>  // For std::vector
-
-#include <fstream> // Include for file writing
-#include <filesystem> // Include for checking current directory
+#include <iomanip>
+#include <memory>
+#include <filesystem>
+#include <fstream>
+#include <vector>
 
 using namespace std;
 
-//using namespacing because i dont want to be confused about what add order to use
-void addOrderDeclaration::addOrder() {
-    if (orderCount >= MAX_ORDERS) {  // we can change the maximum order in the global variable file
-        cout << "Order limit reached! You may want to delete some really old orders.\n";
-        return;
-    }
-
-    filesystem::create_directories("data"); // just in case it doesn't exist
-
-    cout << "Enter order details:\n";
-    // my thought process here is to have a smart pointer here to store our order instead of creating orders
-    //over and over again using an array, by using smart pointer, it helps saved a lot of memory since it
-    //gets deleted automatically
-    unique_ptr<Order> newOrder = make_unique<Order>();
-
-    for (int i = 0; i < numFields; i++) {
-        cout << customerFields[i] << ": ";
-        getline(cin, newOrder->customerInfo[i]);
-    }
- // we dont want to have wrong date on order for security purpose, so we have to make sure the user enter a valid date
-    do {
-        cout << "Enter order date (YYYY-MM-DD): ";
-        getline(cin, newOrder->date);
-        if (!intValidation::isValidDate(newOrder->date)) {
-            cout << "Invalid date format or range. Please try again.\n";
-        }
-    } while (!intValidation::isValidDate(newOrder->date));
-
-
-    double total = 0;
-    cout << "Enter product quantities:\n";
-    newOrder->productQuantities.clear();
-
-    for (const auto& product : productMap) {
-        cout << product.first << " ($" << fixed << setprecision(2) << product.second << " each): ";
-        int quantity = intValidation::getValidInt(0, 1000);
-        newOrder->productQuantities[product.first] = quantity;
-        total += quantity * product.second;
-    }
-
-    // Offer special products
-    cout << "Would you like to see our special products? (yes/no): ";
-    string choice;
-    getline(cin, choice);
-
-    if (choice == "yes" || choice == "Yes") {
-        for (auto& special : specialProducts) {
-            cout << "How many of \"" << special->name << "\" ($" << fixed << setprecision(2) << special->price << ") would you like? ";
-
-            int qty = intValidation::getValidInt(0, 100);
-            if (qty > 0) {
-                newOrder->productQuantities[special->name] += qty;
-                total += qty * special->price;
+namespace addOrderDeclaration {
+    void addOrder() {
+        try {
+            if (!OrderSystem::canAddMoreOrders()) {
+                throw runtime_error("Order limit reached! Delete old orders to add new ones.");
             }
+
+            filesystem::create_directories("data");
+
+            // Create new order
+            auto newOrder = make_unique<Order>();
+            const auto& customerFields = OrderSystem::getCustomerFields();
+
+            // Get customer info
+            for (size_t i = 0; i < customerFields.size() && i < 5; i++) {
+                cout << customerFields[i] << ": ";
+                string input;
+                getline(cin, input);
+                newOrder->setCustomerField(i, input);
+            }
+
+            // Validate date
+            string date;
+            do {
+                cout << "Enter order date (YYYY-MM-DD): ";
+                getline(cin, date);
+            } while (!intValidation::isValidDate(date));
+            newOrder->setDate(date);
+
+            // Process products
+            double total = 0;
+            const auto& products = OrderSystem::getProductMap();
+
+            for (const auto& [name, price] : products) {
+                cout << name << " ($" << fixed << setprecision(2) << price << " each): ";
+                int quantity = intValidation::getValidInt(0, 1000);
+                if (quantity > 0) {
+                    newOrder->addProduct(name, quantity);
+                    total += quantity * price;
+                }
+            }
+
+            // Process special products
+            cout << "Would you like to see our special products? (yes/no): ";
+            string choice;
+            getline(cin, choice);
+
+            if (choice == "yes" || choice == "Yes") {
+                for (const auto& product : OrderSystem::getSpecialProducts()) {
+                    cout << "How many of \"" << product->getName()
+                         << "\" ($" << fixed << setprecision(2) << product->getPrice() << ")? ";
+                    int qty = intValidation::getValidInt(0, 100);
+                    if (qty > 0) {
+                        newOrder->addProduct(product->getName(), qty);
+                        total += qty * product->getPrice();
+                    }
+                }
+            }
+
+            // Finalize order
+            newOrder->setTotalPrice(total);
+            newOrder->setIsActive(true);
+
+            // Save to files BEFORE moving the order
+            saveOrderToFiles(*newOrder);
+
+            // Add to OrderSystem (transfers ownership)
+            OrderSystem::addOrder(std::move(newOrder));
+            OrderSystem::addToRevenue(total);
+
+            cout << "Order added successfully! Total due: $"
+                 << fixed << setprecision(2) << total << "\n";
+
+        } catch (const exception& e) {
+            cerr << "Error: " << e.what() << endl;
         }
     }
 
-    newOrder->totalPrice = total;
-    newOrder->isActive = true;
-    totalRevenue += total;
+    void saveOrderToFiles(const Order& order) {
+        // CSV File Output
+        ofstream outputFile("data/ordersFile.csv", ios::app);
+        if (outputFile.is_open()) {
+            if (outputFile.tellp() == 0) {
+                outputFile << "====================\n";
+                outputFile << "List of all orders:\n";
+            }
 
-    Order* rawOrder = newOrder.get();
-    int currentOrderIndex = orders.size();
-    orders.push_back(std::move(newOrder));
-    orderCount++;
+            outputFile << "Order #" << OrderSystem::getOrderCount() + 1 << " (Date: " << order.getDate() << ")\n";
 
-    cout << "Order added successfully! Thanks!  Total due: $" << fixed << setprecision(2) << total << "\n";
+            const auto& customerInfo = order.getCustomerInfo();
+            const auto& customerFields = OrderSystem::getCustomerFields();
 
-    //now creating or opening my file to store the new order created, that is why i have ios::app mode because
-    //if the file already exist we don't need to create it again
-    //just storing the orders into the csv file
-    ofstream outputFile("data/ordersFile.csv", ios::app);
-    if (outputFile.is_open()) {
-        if (outputFile.tellp() == 0) {
-            outputFile << "====================\n";
-            outputFile << "List of all orders:\n";
+            for (size_t i = 0; i < customerFields.size() && i < 5; i++) {
+                outputFile << customerFields[i] << ": " << customerInfo[i] << "\n";
+            }
+
+            for (const auto& [product, quantity] : order.getProductQuantities()) {
+                outputFile << product << ": " << quantity << "\n";
+            }
+
+            outputFile << "Total Price: $" << fixed << setprecision(2) << order.getTotalPrice() << "\n";
+            outputFile << "-------------------------\n";
+            outputFile.close();
         }
 
-        outputFile << "Order #" << currentOrderIndex + 1 << " (Date: " << rawOrder->date << ")\n";
-        for (int i = 0; i < numFields; i++) {
-            outputFile << customerFields[i] << ": " << rawOrder->customerInfo[i] << "\n";
+        // Binary File Output
+        ofstream binaryFile("data/ordersFile.bin", ios::binary | ios::app);
+        if (binaryFile.is_open()) {
+            const auto& customerInfo = order.getCustomerInfo();
+
+            // Write customer name
+            size_t nameLength = customerInfo[0].size();
+            binaryFile.write(reinterpret_cast<char*>(&nameLength), sizeof(nameLength));
+            binaryFile.write(customerInfo[0].c_str(), nameLength);
+
+            // Write phone (assuming it's the second field)
+            size_t phoneLength = customerInfo[1].size();
+            binaryFile.write(reinterpret_cast<char*>(&phoneLength), sizeof(phoneLength));
+            binaryFile.write(customerInfo[1].c_str(), phoneLength);
+
+            // Write date
+            size_t dateLength = order.getDate().size();
+            binaryFile.write(reinterpret_cast<char*>(&dateLength), sizeof(dateLength));
+            binaryFile.write(order.getDate().c_str(), dateLength);
+
+            // Write products
+            const auto& products = order.getProductQuantities();
+            size_t productCount = products.size();
+            binaryFile.write(reinterpret_cast<char*>(&productCount), sizeof(productCount));
+
+            for (const auto& [product, quantity] : products) {
+                size_t productLength = product.size();
+                binaryFile.write(reinterpret_cast<char*>(&productLength), sizeof(productLength));
+                binaryFile.write(product.c_str(), productLength);
+                binaryFile.write(reinterpret_cast<const char*>(&quantity), sizeof(quantity));
+            }
+
+            // Write total price
+            double total = order.getTotalPrice();
+            binaryFile.write(reinterpret_cast<char*>(&total), sizeof(total));
+            binaryFile.close();
         }
-        for (const auto& product : rawOrder->productQuantities) {
-            outputFile << product.first << ": " << product.second << "\n";
-        }
-        outputFile << "Total Price: $" << fixed << setprecision(2) << rawOrder->totalPrice << "\n";
-        outputFile << "-------------------------\n";
-        outputFile.close();
-    }
-// my thought process is to saved all the files of the store into a file, so the store can check all the orders
-    // the made since the opened, since it will be a large data, that is why i used binary file also in the app mode
-    ofstream binaryFile("data/ordersFile.bin", ios::binary | ios::app);
-    if (binaryFile.is_open()) {
-        //calculate all the lenght to make it nicer
-        size_t nameLength = rawOrder->customerInfo[0].size();
-        binaryFile.write(reinterpret_cast<char*>(&nameLength), sizeof(nameLength));
-        binaryFile.write(rawOrder->customerInfo[0].c_str(), nameLength);
-
-        size_t phoneLength = rawOrder->customerInfo[1].size();
-        binaryFile.write(reinterpret_cast<char*>(&phoneLength), sizeof(phoneLength));
-        binaryFile.write(rawOrder->customerInfo[1].c_str(), phoneLength);
-
-        size_t dateLength = rawOrder->date.size();
-        binaryFile.write(reinterpret_cast<char*>(&dateLength), sizeof(dateLength));
-        binaryFile.write(rawOrder->date.c_str(), dateLength);
-
-        size_t productCount = rawOrder->productQuantities.size();
-        binaryFile.write(reinterpret_cast<char*>(&productCount), sizeof(productCount));
-        for (const auto& product : rawOrder->productQuantities) {
-            size_t productLength = product.first.size();
-            binaryFile.write(reinterpret_cast<char*>(&productLength), sizeof(productLength));
-            binaryFile.write(product.first.c_str(), productLength);
-            binaryFile.write(reinterpret_cast<const char*>(&product.second), sizeof(product.second));
-        }
-
-        binaryFile.write(reinterpret_cast<char*>(&rawOrder->totalPrice), sizeof(rawOrder->totalPrice));
-        binaryFile.close();
-        // now that we wrote what we wanted we can close it
     }
 }
-
