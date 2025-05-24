@@ -4,7 +4,7 @@
 
 #include "../include/setupProducts.h"
 #include "../include/getValidInt.h"
-#include "../include/globalVariable.h"
+#include "../include/order_system.h"
 #include "../include/getValidDouble.h"
 #include <memory>  // For std::unique_ptr and std::shared_ptr
 #include <vector>  // For std::vector
@@ -12,9 +12,10 @@
 
 using namespace std;
 // Step 1: Setup Products and Prices
+// setupProducts.cpp
 void setProductsDeclaration::setupProducts() {
-    cout << "Enter the number of products you have (max " << MAX_PRODUCTS << "): ";
-    numProducts = intValidation::getValidInt(1, MAX_PRODUCTS);
+    cout << "Enter the number of products you have (max " << OrderSystem::MAX_PRODUCTS << "): ";
+    int numProducts = intValidation::getValidInt(1, OrderSystem::MAX_PRODUCTS);
 
     for (int i = 0; i < numProducts; i++) {
         string productName;
@@ -26,13 +27,12 @@ void setProductsDeclaration::setupProducts() {
         cout << "Enter price for " << productName << ": $";
         productPrice = doubleValidation::getValidDouble(0.01);
 
-        productMap[productName] = productPrice;
+        OrderSystem::addProduct(productName, productPrice);
     }
 
-    // Ask for special products
-    int numSpecial;
+    // Special products
     cout << "Do you have special products (e.g., champagne, menu du jour)? How many? ";
-    numSpecial = intValidation::getValidInt(0, 10);
+    int numSpecial = intValidation::getValidInt(0, 10);
 
     for (int i = 0; i < numSpecial; i++) {
         string specialName;
@@ -44,12 +44,6 @@ void setProductsDeclaration::setupProducts() {
         cout << "Enter price for " << specialName << ": $";
         specialPrice = doubleValidation::getValidDouble(0.01);
 
-        // Create and assign values before pushing
-        shared_ptr<SpecialProduct> specialItem = std::make_shared<SpecialProduct>();
-        specialItem->name = specialName;
-        specialItem->price = specialPrice;
-
-        specialProducts.push_back(specialItem);
+        OrderSystem::addSpecialProduct(make_shared<SpecialProduct>(specialName, specialPrice));
     }
-
 }
