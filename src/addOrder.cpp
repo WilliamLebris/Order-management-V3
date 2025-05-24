@@ -12,7 +12,9 @@
 using namespace std;
 
 namespace addOrderDeclaration {
+
     void addOrder() {
+        cout << "using add order in addorder.cpp"<<endl;
         try {
             if (!OrderSystem::canAddMoreOrders()) {
                 throw runtime_error("Order limit reached! Delete old orders to add new ones.");
@@ -54,7 +56,7 @@ namespace addOrderDeclaration {
             }
 
             // Process special products
-            cout << "Would you like to see our special products? (yes/no): ";
+            cout << "Would you like to take a look at our special products? (yes/no): ";
             string choice;
             getline(cin, choice);
 
@@ -86,10 +88,12 @@ namespace addOrderDeclaration {
 
         } catch (const exception& e) {
             cerr << "Error: " << e.what() << endl;
+            cout << "error?"<<endl;
         }
     }
 
     void saveOrderToFiles(const Order& order) {
+        cout << "now in save order to file in addorder.cpp"<<endl;
         // CSV File Output
         ofstream outputFile("data/ordersFile.csv", ios::app);
         if (outputFile.is_open()) {
@@ -108,7 +112,7 @@ namespace addOrderDeclaration {
             }
 
             for (const auto& [product, quantity] : order.getProductQuantities()) {
-                outputFile << product << ": " << quantity << "\n";
+                outputFile << "@"<<product << ": " << quantity << "\n";
             }
 
             outputFile << "Total Price: $" << fixed << setprecision(2) << order.getTotalPrice() << "\n";
