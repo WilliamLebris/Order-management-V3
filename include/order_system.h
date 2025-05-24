@@ -5,7 +5,7 @@
 #ifndef ORDER_SYSTEM_H
 #define ORDER_SYSTEM_H
 
-#include "core/order.h"
+#include "order.h"
 #include "product.h"
 #include <map>
 #include <vector>
@@ -46,7 +46,6 @@ public:
     // Order methods
     static const std::vector<std::unique_ptr<Order>>& getOrders();
     static void addOrder(std::unique_ptr<Order> order);
-    static bool removeOrder(const std::string& customerName);  // Added declaration
 
     // Special products
     static const std::vector<std::shared_ptr<Product>>& getSpecialProducts();
