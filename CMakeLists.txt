@@ -29,16 +29,12 @@ add_library(OrderManagerLib
         src/setupProducts.cpp
         src/setupCustomerFields.cpp
         src/addOrder.cpp
-        src/displayOrders.cpp
-        src/searchOrder.cpp
-        src/deleteOrder.cpp
         src/menu.cpp
         src/getValidInt.cpp
         src/getValidDouble.cpp
         src/order_system.cpp
         src/UserDatabase.cpp
         src/NameValidation.cpp
-        src/printStoreOrders.cpp
         src/order.cpp
         src/file_manager.cpp
         src/product.cpp
@@ -51,21 +47,16 @@ add_executable(Order_Manager_2
         include/setupProducts.h
         include/setupCustomerFields.h
         include/addOrder.h
-        include/displayOrders.h
-        include/searchOrder.h
-        include/deleteOrder.h
         include/menu.h
         include/getValidInt.h
         include/getValidDouble.h
         include/order_system.h
         include/UserDatabase.h
         include/NameValidation.h
-        include/printStoreOrders.h
         include/product.h
         include/order.h
         include/file_manager.h
         include/exception.h
-        include/product_factory.h
 )
 
 target_link_libraries(Order_Manager_2 OrderManagerLib)
