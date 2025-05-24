@@ -12,8 +12,10 @@
 
 using namespace std;
 // Step 1: Setup Products and Prices
-// setupProducts.cpp
+
 void setProductsDeclaration::setupProducts() {
+     cout<<"using set up product in set up product "<<endl;
+
     cout << "Enter the number of products you have (max " << OrderSystem::MAX_PRODUCTS << "): ";
     int numProducts = intValidation::getValidInt(1, OrderSystem::MAX_PRODUCTS);
 
@@ -27,7 +29,8 @@ void setProductsDeclaration::setupProducts() {
         cout << "Enter price for " << productName << ": $";
         productPrice = doubleValidation::getValidDouble(0.01);
 
-        OrderSystem::addProduct(productName, productPrice);
+        OrderSystem::addProduct(productName, productPrice); // now we go to add product in order_system to save it
+        //into the product map
     }
 
     // Special products
@@ -44,6 +47,7 @@ void setProductsDeclaration::setupProducts() {
         cout << "Enter price for " << specialName << ": $";
         specialPrice = doubleValidation::getValidDouble(0.01);
 
-        OrderSystem::addSpecialProduct(make_shared<SpecialProduct>(specialName, specialPrice));
+        OrderSystem::addSpecialProduct(make_shared<SpecialProduct>(specialName, specialPrice)); // now calling
+        //the special product vector where we will push back the special product
     }
 }
