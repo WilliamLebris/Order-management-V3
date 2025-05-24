@@ -58,10 +58,8 @@ void menuDeclaration::menu() {
                 string name;
                 cout << "Enter customer name to delete: ";
                 getline(cin, name);
-                if (fileManager->deleteOrder(name)) {
+                if (fileManager->deleteOrder(name)) {  // Calls CSVFileManager
                     cout << "Order deleted successfully.\n";
-                } else {
-                    cout << "Order not found.\n";
                 }
                 break;
             }
