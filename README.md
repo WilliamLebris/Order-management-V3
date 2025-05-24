@@ -28,24 +28,24 @@ Google Test for unit testing
 
 
 📦 Folder Structure
-Order-Manager-2/
-│
-├── src/                      # All .cpp files here
-│
-├── include/                  # All .hpp header files here
-│
-├── test/                     # All test files here
-│   └── test_orders.cpp
-│
-├── data/                     # CSV and binary files here
-│
-├── extern/                   # External dependencies (e.g., Google Test)
-│
-├── CMakeLists.txt            # CMake build configuration
-├── .gitignore                # Git ignore file
-├── README.md                 # Project readme
-├── LICENSE                   # Project license
-└── main.cpp                  # Main application entry point
+Order-Manager-2/ <br>
+│<br>
+├── src/                      # All .cpp files here<br>
+│<br>
+├── include/                  # All .hpp header files here<br>
+│<br>
+├── test/                     # All test files here<br>
+│   └── test_orders.cpp<br>
+│<br>
+├── data/                     # CSV and binary files here<br>
+│<br>
+├── extern/                   # External dependencies (e.g., Google Test)<br>
+│<br>
+├── CMakeLists.txt            # CMake build configuration<br>
+├── .gitignore                # Git ignore file<br>
+├── README.md                 # Project readme<br>
+├── LICENSE                   # Project license<br>
+└── main.cpp                  # Main application entry point<br>
 *************************************************************************
 
 
