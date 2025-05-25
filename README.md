@@ -50,8 +50,6 @@ Order-Manager-2/ <br>
 
 
 
-
-
 ## New implementation <br>
 ----------------------------------------------------------------------------------------------------------<br>
 Classes & Objects ::---->	            Order, Product, FileManager, etc.  	          Clean separation of concerns.<br>
