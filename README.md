@@ -48,11 +48,6 @@ Order-Manager-2/ <br>
 └── main.cpp                  # Main application entry point<br>
 *************************************************************************
 
-![img.png](img.png)
-
-
-
-![img_1.png](img_1.png)
 
 🧠 Sample Use Case
 Admin creates a user account.
