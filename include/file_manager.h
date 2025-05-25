@@ -13,7 +13,10 @@
 #include <unordered_map>
 
 class Order;
+//implementing abstraction
+//Users call printAllOrders() without knowing CSV/binary implementation
 
+//Pure virtual function forces child classes to implement it
 class FileManager {
 public:
     virtual ~FileManager() = default;
@@ -21,7 +24,7 @@ public:
     virtual bool deleteOrder(const std::string& customerName) = 0;
     virtual void displayOrders() = 0;
     virtual void searchOrder() = 0;
-    virtual void printAllOrders() = 0;
+    virtual void printAllOrders() = 0; // Abstracting interface, Pure virtual (interface)
 };
 
 class CSVFileManager : public FileManager {
