@@ -7,6 +7,7 @@
 #include <ctime>
 
 int main() {
+
     try {
         // Fancy welcome message
         srand(time(0));
@@ -18,7 +19,7 @@ int main() {
         // Initialize system
         OrderSystem::initialize();
 
-        /*
+
         // User authentication
         if (!UserDatabase::isInitialized()) {
             std::cout << "=== CREATE ADMIN ACCOUNT ===\n";
@@ -28,7 +29,7 @@ int main() {
         while (!UserDatabase::login()) {
             std::cout << "Login failed. Try again.\n";
         }
-*/
+
         // First-time setup
         if (!OrderSystem::hasProducts()) {
             std::cout << "\n=== PRODUCT SETUP ===\n";
