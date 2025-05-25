@@ -47,6 +47,9 @@ Order-Manager-2/ <br>
 ├── LICENSE                   # Project license<br>
 └── main.cpp                  # Main application entry point<br>
 *************************************************************************
+![image](https://github.com/user-attachments/assets/646e375b-79b0-426f-b1b1-78c81044a79a)
+![image](https://github.com/user-attachments/assets/188a4c0e-00f6-42df-92e1-f6fe29e23b91)
+
 
 
 Program architecture
