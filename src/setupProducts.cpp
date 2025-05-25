@@ -46,7 +46,10 @@ void setProductsDeclaration::setupProducts() {
 
         cout << "Enter price for " << specialName << ": $";
         specialPrice = doubleValidation::getValidDouble(0.01);
+        //create polymorphic objects
+        //The Product pointer/reference can point to either RegularProduct or SpecialProduct.
 
+        //Calling getType() will invoke the correct version based on the actual object type.
         OrderSystem::addSpecialProduct(make_shared<SpecialProduct>(specialName, specialPrice)); // now calling
         //the special product vector where we will push back the special product
     }

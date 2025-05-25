@@ -31,38 +31,6 @@ bool CSVFileManager::OrderHasPhoneNumber() const {
     });
 }
 
-// Main implementations
-/*
-void CSVFileManager::saveOrder(const Order& order) {
-    filesystem::create_directories("data");
-    ofstream outputFile("data/ordersFile.csv", ios::app);
-    if (!outputFile) {
-        throw runtime_error("Error opening orders file!");
-    }
-
-    if (outputFile.tellp() == 0) {
-        outputFile << "====================\nList of all orders:\n";
-    }
-
-    outputFile << "Order #" << OrderSystem::getOrderCount() << " (Date: "
-              << order.getDate() << ")\n";
-
-    const auto& customerInfo = order.getCustomerInfo();
-    const auto& fields = OrderSystem::getCustomerFields();
-
-    for (size_t i = 0; i < fields.size(); ++i) {
-        outputFile << fields[i] << ": " << customerInfo[i] << "\n";
-    }
-
-    for (const auto& [product, quantity] : order.getProductQuantities()) {
-        outputFile << product << ": " << quantity << "\n";
-    }
-
-    outputFile << "Total Price: $" << fixed << setprecision(2)
-              << order.getTotalPrice() << "\n-------------------------\n";
-}
-*/
-
  //function used to delete orders
 bool CSVFileManager::deleteOrder(const string& customerName) {
 
@@ -193,7 +161,7 @@ void CSVFileManager::searchOrder() {
     }
 }
 
-void CSVFileManager::printAllOrders() {
+void CSVFileManager::printAllOrders() { // Implements the interface
 
     cout << "using print all order from file manager "<<endl;
     ifstream binaryFile("data/ordersFile.bin", ios::binary);
