@@ -49,6 +49,41 @@ Order-Manager-2/ <br>
 *************************************************************************
 
 
+
+
+
+## New implementation <br>
+----------------------------------------------------------------------------------------------------------<br>
+Classes & Objects ::---->	            Order, Product, FileManager, etc.  	          Clean separation of concerns.<br>
+                                    encapsulate data + behavior<br>
+                                 (e.g., Order::setCustomerField()).<br>
+<br>
+
+Abstraction	  ::--->                 FileManager hides file operations behind   	  Users don’t need to know CSV/binary logic. <br>
+                                 simple interfaces like printAllOrders().<br>
+<br>
+
+Encapsulation	   ::---->           Private members (e.g., Order::customerInfo) 	  Controlled access to data.<br>
+                                 with public getters/setters.<br>
+<br>
+Inheritance	           ::---->         SpecialProduct : public Product .	          Base class defines common interface,<br>
+                              (in product.h/cpp) overrides getType()             derived classes specialize.<br>
+
+<br>
+Polymorphism	      ::---->     Product::getType() behaves differently  	          Enables flexible, extensible code.<br>
+                           for RegularProduct vs. SpecialProduct<br>
+                           (runtime polymorphism). FileManager interface<br>
+                           allows future extensions (interface polymorphism).<br>
+<br>
+
+Composition	            ::---->   Order contains a map<string, int> for products	  More flexible than inheritance for <br>
+                              (has-a relationship) instead of inheriting.           this use case.<br>
+<br>
+
+Exceptions	                ::---->Custom exceptions (OrderException) thrown for     	Graceful error handling with clear semantics.<br>
+                                 invalid states (e.g., negative prices <br>
+                                    in OrderSystem::addProduct()).   <br>
+
 🧠 Sample Use Case
 Admin creates a user account.
 
