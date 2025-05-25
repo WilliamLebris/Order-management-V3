@@ -129,6 +129,8 @@ To run the Tests
 
 Short Video presentation : https://youtu.be/6wJJsCYNqGQ
 
+in case the video above doesn't work : https://youtu.be/Y9XEgFp1Hp8  (I'm going over the same things)
+Same VIdeo - No need to watch both
 End Notes
 Feel free to reach out if you encounter any issues or have questions!
 
