@@ -80,6 +80,7 @@ void UserDatabase::addNewUser() {
     cout << "New user added successfully!\n";
 }
 
+// just to verify
 bool UserDatabase::isLoggedIn() {
     return loggedIn;
 }
